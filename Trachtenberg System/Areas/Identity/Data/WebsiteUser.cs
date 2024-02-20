@@ -9,5 +9,6 @@ namespace Trachtenberg_System.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the WebsiteUser class
 public class WebsiteUser : IdentityUser
 {
+    public string UserName { get; set; }
 }
 
