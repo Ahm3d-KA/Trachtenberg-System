@@ -1,4 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Trachtenberg_System.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'Connection' not found.");
+
+builder.Services.AddDbContext<WebsiteUserDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<WebsiteUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebsiteUserDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -15,6 +23,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.MapRazorPages();
 
 app.UseRouting();
 
