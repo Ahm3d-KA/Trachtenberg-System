@@ -75,9 +75,13 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [Display(Name = "Username")]
+            [Required] // User has to input a value
+            [Display(Name = "Username")] 
+            [MinLength(3)]
             [MaxLength(50)]
+            // Prevents issues with special characters in the database
+            [RegularExpression("^[a-zA-Z0-9-]*$", ErrorMessage = "Only letters, numbers and dashes are allowed.")]
+            [DataType(DataType.Text)]
             public string Username { get; set; }
             [Required]
             [EmailAddress]
@@ -118,7 +122,9 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+                // Adding the username attribute to the user record
+                user.UserName = Input.Username;
+                
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
