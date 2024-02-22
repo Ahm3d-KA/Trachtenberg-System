@@ -76,6 +76,10 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [Display(Name = "Username")]
+            [MaxLength(50)]
+            public string Username { get; set; }
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }

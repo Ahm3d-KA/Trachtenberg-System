@@ -1,92 +1,92 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Trachtenberg_System</title>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Trachtenberg_System.styles.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>@ViewData["Title"] - Trachtenberg_System</title>
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+  <link rel="stylesheet" href="~/Trachtenberg_System.styles.css" asp-append-version="true"/>
+  <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
 
 </head>
 <body>
 <header>
-    @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"> *@
-    @*     <div class="container-fluid"> *@
-    @*         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trachtenberg_System</a> *@
-    @*         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
-    @*                 aria-expanded="false" aria-label="Toggle navigation"> *@
-    @*             <span class="navbar-toggler-icon"></span> *@
-    @*         </button> *@
-    @*         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
-    @*             <ul class="navbar-nav flex-grow-1"> *@
-    @*                 <li class="nav-item"> *@
-    @*                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> *@
-    @*                 </li> *@
-    @*                 <li class="nav-item"> *@
-    @*                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-    @*                 </li> *@
-    @*             </ul> *@
-    @*         </div> *@
-    @*     </div> *@
-    @*     <partial name="_LoginPartial"></partial> *@
-    @* </nav> *@
-    <!-- nav bar -->
-    <div class="navbar shadow-xl">
+  @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"> *@
+  @*     <div class="container-fluid"> *@
+  @*         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trachtenberg_System</a> *@
+  @*         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
+  @*                 aria-expanded="false" aria-label="Toggle navigation"> *@
+  @*             <span class="navbar-toggler-icon"></span> *@
+  @*         </button> *@
+  @*         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
+  @*             <ul class="navbar-nav flex-grow-1"> *@
+  @*                 <li class="nav-item"> *@
+  @*                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> *@
+  @*                 </li> *@
+  @*                 <li class="nav-item"> *@
+  @*                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+  @*                 </li> *@
+  @*             </ul> *@
+  @*         </div> *@
+  @*     </div> *@
+  @*     <partial name="_LoginPartial"></partial> *@
+  @* </nav> *@
+  <!-- nav bar -->
+  <div class="navbar shadow-xl">
       
-      <div class="navbar-start">
-        <div class="dropdown">
+    <div class="navbar-start">
+      <div class="dropdown">
           
-          <!-- logo -->
-          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
-          </div>
-          
-          
-          <!-- items -->
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>Item 1</a></li>
-            <li>
-              <a>Parent</a>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </li>
-            <li><a>Item 3</a></li>
-          </ul>
+        <!-- logo -->
+        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
         </div>
-      </div>
-      
-      <!-- submenu -->
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
+          
+          
+        <!-- items -->
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
           <li><a>Item 1</a></li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </details>
+            <a>Parent</a>
+            <ul class="p-2">
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
           </li>
-          
           <li><a>Item 3</a></li>
         </ul>
       </div>
-      
-      
-      <!-- login and register -->
-      <div class="navbar-end">
-        <partial name="_LoginPartial"/>
-      </div>
     </div>
+      
+    <!-- submenu -->
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a>Item 1</a></li>
+        <li>
+          <details>
+            <summary>Parent</summary>
+            <ul class="p-2">
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
+          </details>
+        </li>
+          
+        <li><a>Item 3</a></li>
+      </ul>
+    </div>
+      
+      
+    <!-- login and register -->
+    <div class="navbar-end">
+      <partial name="_LoginPartial"/>
+    </div>
+  </div>
 </header>
 <div class="">
-    <main role="main" class="">
-        @RenderBody()
-    </main>
+  <main role="main" class="">
+    @RenderBody()
+  </main>
 </div>
 
 <footer class="border-top footer text-muted">
@@ -96,3 +96,5 @@
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+@* https://www.figma.com/file/VzT2UCcJU9r56ZZgF84ibN/Maths-UI-Design-Kit?type=design&node-id=23-101&mode=design&t=BRNA1u4a5HXPnbEe-4 *@
