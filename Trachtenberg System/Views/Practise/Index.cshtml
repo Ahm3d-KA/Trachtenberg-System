@@ -20,10 +20,12 @@
     </div>
     
     <!-- choose practise settings -->
-    <div>
-        <div class="flex flex-row gap-5">
+    <form method="post" asp-controller="Practise" asp-action="Index">
+        <div>
+            
+            <!-- adjust settings for test -->
             <div class="flex flex-col gap-4">
-                
+    
                 <!-- choose operation -->
                 <div class="flex flex-col gap-2">
                     <label asp-for="Operation">Choose operation: </label>
@@ -36,7 +38,7 @@
                         <option>Square Rooting</option>
                     </select>
                 </div>
-                
+    
                 <!-- choose difficulty -->
                 <div class="flex flex-col gap-2">
                     <label asp-for="Difficulty">Choose the session difficulty: </label>
@@ -48,7 +50,7 @@
                         <option>Expert</option>
                     </select>
                 </div>
-                
+    
                 <!-- choose length -->
                 <div class="flex flex-col gap-2">
                     <label asp-for="Length">Choose the the session length: </label>
@@ -60,26 +62,18 @@
                         <option>Marathon</option>
                     </select>
                 </div>
-                
+    
                 <!-- custom -->
                 <div class="">
                     <label class="label cursor-pointer">
-                        <span class="label-text">Custom session?</span> 
-                        <input type="checkbox" checked="checked" class="checkbox" />
+                        <span class="label-text">Custom session?</span>
+                        <input type="checkbox" class="checkbox"/>
                     </label>
                 </div>
-                
+    
                 <!-- submit button -->
                 <button class="btn btn-primary">Start test</button>
-                
             </div>
-            <div>
-                
-            </div>
-
         </div>
-    </div>
-    <div>
-
-    </div>
+    </form>
 </div>

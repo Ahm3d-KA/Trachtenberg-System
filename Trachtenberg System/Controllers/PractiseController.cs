@@ -13,4 +13,13 @@ public class PractiseController : Controller
         // passing the object to the front end
         return View(objPractise);
     }
+    
+    // POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Index(PractiseModel objPractise)
+    {
+        OperationsEnum whatIsTheOperation = objPractise.Operation;
+        return View(objPractise);
+    }
 }
