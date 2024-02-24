@@ -105,7 +105,7 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            // returnUrl ??= Url.Content("~/Views/LoggedIn/Index.cshtml");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -118,7 +118,9 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    // Redirect to logged in controller as only files in wwwroot can be accessed with a static url
+                    return RedirectToAction("Index", "LoggedIn");
+                    // return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
