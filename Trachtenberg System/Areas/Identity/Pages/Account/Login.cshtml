@@ -10,31 +10,39 @@
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-red-500" role="alert"></div>
-                
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-red-500"></span>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-red-500"></span>
-                </div>
-                
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                <!-- flexbox for the form elements -->
+                <div class="flex flex-col p-2 w-full gap-4">
+                    <h2 class="text-2xl">Use a local account to log in.</h2>
+
+                    <hr/>
+                    <div asp-validation-summary="ModelOnly" class="text-red-500" role="alert"></div>
+
+                    <!-- email input -->
+                    <div class="flex flex-col gap-1">
+                        <label asp-for="Input.Email" class="form-label">Email</label>
+                        <input asp-for="Input.Email" class="input input-bordered max-w-screen-md" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
+                        <span asp-validation-for="Input.Email" class="text-red-500"></span>
+                    </div>
+
+                    <!-- password input -->
+                    <div class="flex flex-col gap-1">
+                        <label asp-for="Input.Password" class="">Password</label>
+                        <input asp-for="Input.Password" class="input input-bordered max-w-screen-md" autocomplete="current-password" aria-required="true" placeholder="password"/>
+                        <span asp-validation-for="Input.Password" class="text-red-500"></span>
+                    </div>
+
+                    <!-- remember me checkbox -->
+                    <div class="">
+                        <label asp-for="Input.RememberMe" class="">
+                            <input class="checkbox" asp-for="Input.RememberMe"/>
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+
+                    <!-- login button -->
+                    <div>
+                        <button id="login-submit" type="submit" class="btn btn-lg btn-primary">Log in</button>
+                    </div>
                 </div>
                 <div>
                     <p>
