@@ -4,4 +4,73 @@
     ViewData["Title"] = "Logged In";
 }
 
-<h1>Logged in!</h1>
+<!-- main content -->
+<div class="flex flex-col pt-14 gap-14 items-center">
+    
+    <div>
+        <h1 class="text-4xl">Hi, User</h1>
+    </div>
+
+    <!-- dashboard -->
+    <div class="flex flex-row gap-2 flex-wrap w-[700px] justify-center border-2 border-sky-700 p-2">
+        @* <div class="h-28 w-36 border border-gray-500 flex flex-col items-center justify-center"> *@
+
+        <!-- items in the dashboard -->
+
+        <!-- practise -->
+        <div>
+            <a asp-controller="" asp-action="">
+                <div class="h-28 w-36 border border-gray-500">
+                    <button class="btn glass w-full h-full">Practise</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- test -->
+        <div>
+            <a asp-controller="" asp-action="">
+                <div class="h-28 w-36 border border-gray-500">
+                    <button class="btn glass w-full h-full">Test</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- stats -->
+        <div>
+            <a asp-controller="" asp-action="">
+                <div class="h-28 w-36 border border-gray-500">
+                    <button class="btn glass w-full h-full">Stats</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- leaderboard -->
+        <div>
+            <a asp-controller="" asp-action="">
+                <div class="h-28 w-36 border border-gray-500">
+                    <button class="btn glass w-full h-full">Leaderboard</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- course -->
+        <div>
+            <a asp-controller="" asp-action="">
+                <div class="h-28 w-36 border border-gray-500">
+                    <button class="btn glass w-full h-full">Course</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- profile -->
+        <div>
+            <a asp-controller="" asp-action="">
+                <div class="h-28 w-36 border border-gray-500">
+                    <button class="btn glass w-full h-full">Profile</button>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+</div>

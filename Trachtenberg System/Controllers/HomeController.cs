@@ -2,6 +2,9 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Trachtenberg_System.Models;
 
+using Microsoft.AspNetCore.Identity;
+using Trachtenberg_System.Areas.Identity.Data;
+
 namespace Trachtenberg_System.Controllers;
 
 public class HomeController : Controller
@@ -15,6 +18,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+
         return View();
     }
 
