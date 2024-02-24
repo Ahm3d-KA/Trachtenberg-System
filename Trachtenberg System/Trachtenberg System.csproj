@@ -87,6 +87,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\bootstrap\LICENSE" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\" />
+    </ItemGroup>
+
 
 
 </Project>

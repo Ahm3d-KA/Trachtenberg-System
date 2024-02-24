@@ -27,8 +27,8 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Websi
 {
     public void Configure(EntityTypeBuilder<WebsiteUser> builder)
     {
-        builder.Property(item => item.UserName).HasMaxLength(100);
-        builder.Property(item => item.UserName).IsRequired();
+        builder.Property(item => item.AccountName).HasMaxLength(100);
+        builder.Property(item => item.AccountName).IsRequired();
 
     }
 }

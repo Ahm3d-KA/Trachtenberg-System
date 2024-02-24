@@ -82,7 +82,7 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
             // Prevents issues with special characters in the database
             [RegularExpression("^[a-zA-Z0-9-]*$", ErrorMessage = "Only letters, numbers and dashes are allowed.")]
             [DataType(DataType.Text)]
-            public string Username { get; set; }
+            public string AccountName { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -123,7 +123,7 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
                 // Adding the username attribute to the user record
-                user.UserName = Input.Username;
+                user.AccountName = Input.AccountName;
                 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
