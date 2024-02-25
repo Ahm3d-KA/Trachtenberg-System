@@ -29,37 +29,27 @@
                 <!-- choose operation -->
                 <div class="flex flex-col gap-2">
                     <label asp-for="Operation">Choose operation: </label>
-                    <select asp-for="Operation" class="select select-bordered w-full max-w-xs">
+                    <!-- binds to operation property and and provides the options from the OperationsEnum -->
+                    <select asp-for="Operation" asp-items="Html.GetEnumSelectList<OperationsEnum>()" class="select select-bordered w-full max-w-xs">
                         <option disabled selected>Choose operation</option>
-                        <option>Multiplication</option>
-                        <option>Addition</option>
-                        <option>Division</option>
-                        <option>Squaring</option>
-                        <option>Square Rooting</option>
                     </select>
                 </div>
     
                 <!-- choose difficulty -->
                 <div class="flex flex-col gap-2">
                     <label asp-for="Difficulty">Choose the session difficulty: </label>
-                    <select asp-for="Difficulty" class="select select-bordered w-full max-w-xs">
+                    <!-- binds to difficulty property and and provides the options from the DifficultyEnum -->
+                    <select asp-for="Difficulty" asp-items="Html.GetEnumSelectList<DifficultyEnum>()" class="select select-bordered w-full max-w-xs">
                         <option disabled selected>Choose difficulty</option>
-                        <option>Easy</option>
-                        <option>Medium</option>
-                        <option>Hard</option>
-                        <option>Expert</option>
                     </select>
                 </div>
     
                 <!-- choose length -->
                 <div class="flex flex-col gap-2">
                     <label asp-for="Length">Choose the the session length: </label>
-                    <select asp-for="Length" class="select select-bordered w-full max-w-xs">
+                    <!-- binds to length property and and provides the options from the LengthEnum -->
+                    <select asp-for="Length" asp-items="Html.GetEnumSelectList<LengthEnum>()" class="select select-bordered w-full max-w-xs">
                         <option disabled selected>Choose length</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Marathon</option>
                     </select>
                 </div>
     
@@ -67,12 +57,13 @@
                 <div class="">
                     <label class="label cursor-pointer">
                         <span class="label-text">Custom session?</span>
-                        <input type="checkbox" class="checkbox"/>
+                        <!-- binds to isCustom property within the CustomPractise object which is a boolean -->
+                        <input asp-for="CustomPractise.IsCustom" type="checkbox" class="checkbox"/>
                     </label>
                 </div>
     
                 <!-- submit button -->
-                <button class="btn btn-primary">Start test</button>
+                <input type="submit" value="Start test" class="btn btn-primary"/>
             </div>
         </div>
     </form>

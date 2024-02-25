@@ -1,6 +1,6 @@
 ﻿namespace Trachtenberg_System.Models;
 
-public enum PractiseEnum
+public enum LengthEnum
 // decides how many questions will be shown in the session
 {
     Short = 5,
