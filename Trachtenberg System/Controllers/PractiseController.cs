@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Trachtenberg_System.Models;
 
 namespace Trachtenberg_System.Controllers;
@@ -22,11 +23,13 @@ public class PractiseController : Controller
     {
         return RedirectToAction("Session", "Practise", objPractise);
     }
-    
+
+
     // SESSION - GET
     // method sends the test customisation settings to front end and renders view
     public IActionResult Session(PractiseModel objPractise)
     {
-        return View(objPractise);
+        string jsonObjPractise = JsonConvert.SerializeObject(objPractise);
+        return View("Session", jsonObjPractise);
     }
 }
