@@ -14,12 +14,19 @@ public class PractiseController : Controller
         return View(objPractise);
     }
     
-    // POST
+    // INDEX - POST
     [HttpPost]
     [ValidateAntiForgeryToken]
+    // receives user form on test settings and sends to practise controller
     public IActionResult Index(PractiseModel objPractise)
     {
-        OperationsEnum whatIsTheOperation = objPractise.Operation;
+        return RedirectToAction("Session", "Practise", objPractise);
+    }
+    
+    // SESSION - GET
+    // method sends the test customisation settings to front end and renders view
+    public IActionResult Session(PractiseModel objPractise)
+    {
         return View(objPractise);
     }
 }
