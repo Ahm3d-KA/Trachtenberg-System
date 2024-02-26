@@ -29,7 +29,9 @@ public class PractiseController : Controller
     // method sends the test customisation settings to front end and renders view
     public IActionResult Session(PractiseModel objPractise)
     {
+        // turns the object into a json string
         string jsonObjPractise = JsonConvert.SerializeObject(objPractise);
+        // returns Session View with the json string to be used in Test class
         return View("Session", jsonObjPractise);
     }
 }

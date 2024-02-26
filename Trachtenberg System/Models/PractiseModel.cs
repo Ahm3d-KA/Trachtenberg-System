@@ -12,7 +12,6 @@ public class PractiseModel
     [JsonConverter(typeof(StringEnumConverter))]  
     public DifficultyEnum Difficulty { get; set; }
     
-    [JsonConverter(typeof(StringEnumConverter))]  
     public LengthEnum Length { get; set; }
     
     public CustomPractiseStruct CustomPractise { get; set; }
