@@ -5,15 +5,15 @@
     ViewData["Title"] = "Practise";
 }
 
-<p id="difficulty"></p>
+<p id="js-test">yo</p>
 
-<script>
-    console.log("before");
-    let objPractise = JSON.parse('@Html.Raw(Model)');
-    document.getElementById('difficulty').innerText = objPractise.Difficulty;
-    console.log(objPractise.Difficulty);
-    // console.log("Hellooo");
-    // console.log(objPractise);
-    // let secondTest = new Test(objPractise.Length, objPractise.Difficulty, objPractise.Operation);
-    // secondTest.generateTest();
+
+@* <script type="text/javascript" src="@Url.Content("/js/site.js")"></script> *@
+
+<script type="text/javascript">
+    let modelConv = @Html.Raw(Model);
+    console.log(modelConv);
+    let firstTest = new Test(modelConv.Length, modelConv.Difficulty, modelConv.Operation);
+    firstTest.generateMultiplicationTest();
+    
 </script>
