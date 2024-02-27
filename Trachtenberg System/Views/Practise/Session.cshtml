@@ -62,32 +62,67 @@
             }
     
         }
-        runMultiplicationTest() {
+        async runMultiplicationTest() {
             let userAnswer = 0;
-            // loops through the number of questions specified by testLength and prints out the questions
             for (let i = 0; i < this.testLength; i++) {
-                // prints out question
-                // console.log(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
-                // changes content of question paragraph tag dynamically to show question the user 
                 document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
-                var button = document.getElementById("answer-button");
-                button.addEventListener("click", function() {
-                    userAnswer = document.getElementById("answer").value;
+        
+                // Create a new Promise that resolves when the button is clicked
+                const answerPromise = new Promise(resolve => {
+                    var button = document.getElementById("answer-button");
+                    $(document).keyup(function (keyInput) {
+                        if (keyInput.keyCode === 13) {
+                            userAnswer = document.getElementById("answer").value;
+                            resolve();
+                            }
+                        });
+                    // button.addEventListener("click", function() {
+                    //     userAnswer = document.getElementById("answer").value;
+                    //     resolve();  // Resolve the Promise
+                    // });
                 });
-                // user inputs their answer
-                // userAnswer = prompt(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
-                // checks if answer is correct
+        
+                // Wait for the Promise to resolve (i.e., the button to be clicked)
+                await answerPromise;
+                
+                document.getElementById("answer").value = "";
+                
                 if (Number(userAnswer) === Number(this.answers[i])) {
                     console.log("Correct!");
                     this.testScore++;
                 }
                 else {
                     console.log("Incorrect, answer is " + this.answers[i]);
-    
                 }
             }
             console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
         }
+        // runMultiplicationTest() {
+        //     let userAnswer = 0;
+        //     // loops through the number of questions specified by testLength and prints out the questions
+        //     for (let i = 0; i < this.testLength; i++) {
+        //         // prints out question
+        //         // console.log(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
+        //         // changes content of question paragraph tag dynamically to show question the user 
+        //         document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
+        //         var button = document.getElementById("answer-button");
+        //         button.addEventListener("click", function() {
+        //             userAnswer = document.getElementById("answer").value;
+        //         });
+        //         // user inputs their answer
+        //         // userAnswer = prompt(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
+        //         // checks if answer is correct
+        //         if (Number(userAnswer) === Number(this.answers[i])) {
+        //             console.log("Correct!");
+        //             this.testScore++;
+        //         }
+        //         else {
+        //             console.log("Incorrect, answer is " + this.answers[i]);
+        //
+        //         }
+        //     }
+        //     console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
+        // }
     
         generateMultiplicationTest() {
             switch(this.difficulty) {
