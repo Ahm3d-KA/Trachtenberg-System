@@ -5,8 +5,11 @@
     Layout = "_Layout";
     ViewData["Title"] = "Practise";
 }
-
-<p id="js-test">yo</p>
+<div class="flex flex-col gap-4 p-4 w-full items-center">
+    <p id="Question">Question</p>
+    <input type="text" placeholder="Answer" id="answer" class="input input-bordered w-full max-w-xs" />
+    <button class="btn btn-secondary" id="answer-button">Enter answer</button>
+</div>
 
 
 @* <script type="text/javascript" src="@Url.Content("/js/site.js")"></script> *@
@@ -64,9 +67,15 @@
             // loops through the number of questions specified by testLength and prints out the questions
             for (let i = 0; i < this.testLength; i++) {
                 // prints out question
-                console.log(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
+                // console.log(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
+                // changes content of question paragraph tag dynamically to show question the user 
+                document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
+                var button = document.getElementById("answer-button");
+                button.addEventListener("click", function() {
+                    userAnswer = document.getElementById("answer").value;
+                });
                 // user inputs their answer
-                userAnswer = prompt(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
+                // userAnswer = prompt(this.operands[i] + " x " + this.secondaryOperands[i] + ":");
                 // checks if answer is correct
                 if (Number(userAnswer) === Number(this.answers[i])) {
                     console.log("Correct!");
