@@ -34,4 +34,16 @@ public class PractiseController : Controller
         // returns Session View with the json string to be used in Test class
         return View("Session", jsonObjPractise);
     }
+
+    public IActionResult TestResults()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult TestResults(int score)
+    {
+        return RedirectToAction("TestResults", score);
+    }
 }

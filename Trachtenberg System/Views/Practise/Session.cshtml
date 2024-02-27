@@ -82,15 +82,17 @@
             for (let i = 0; i < this.testLength; i++) {
                 document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
         
-                // Create a new Promise that resolves when the Enter key is pressed
+                // a promise that is resolved when the enter key is pressed 
                 const answerPromise = new Promise(resolve => {
+                    // setInterval(function, 100) means enter key is checked for every 100ms
                     var checkEnter = setInterval(function() {
                         if (enterPressed) {
                             resolve();
-                            enterPressed = false;  // Reset the enterPressed variable
+                            // enterPressed reset for the next question
+                            enterPressed = false;  
                             clearInterval(checkEnter);  // Stop checking for the Enter key
                         }
-                    }, 100);  // Check for the Enter key every 100ms
+                    }, 100);  
                 });
         
                 // Wait for the Promise to resolve (i.e., the Enter key to be pressed)
@@ -106,7 +108,15 @@
                     console.log("Incorrect, answer is " + this.answers[i]);
                 }
             }
+            
             console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
+            
+                .then(function(response) {
+                    // success
+                }, 
+                 function(response) { // optional
+                    // failed
+                });
         }
         // async runMultiplicationTest() {
         //     let userAnswer = 0;
@@ -224,5 +234,11 @@
     let firstTest = new Test(testInfoJson.Length, testInfoJson.Difficulty, testInfoJson.Operation);
     // running a multiplication test
     firstTest.generateMultiplicationTest();
+    firstTest.
+    $http({
+         url: "Practise/TestResults/",
+         method: "POST",
+         data: firstTest.testScore 
+    })
     
 </script>
