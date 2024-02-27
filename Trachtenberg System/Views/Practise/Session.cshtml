@@ -12,13 +12,27 @@
 </div>
 
 
-@* <script type="text/javascript" src="@Url.Content("/js/site.js")"></script> *@
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
 <script type="text/javascript">
+    
     // a function that generates a random integer between maximumValue and minimumValue inclusive
     
     function getRandomInteger(minimumValue, maximumValue) {
         return Math.floor(Math.random() * (maximumValue - minimumValue + 1) ) + minimumValue;
     }
+    
+    let enterPressed = false;
+            let userAnswer = 0;
+            
+            $(document).keyup(function (keyInput) {
+                if (keyInput.keyCode === 13) {
+                    userAnswer = document.getElementById("answer").value;
+                    enterPressed = true;
+                }
+            });
     
     // make sure to add a javascript comment to explain what the class does in proper formatting and look into unit testing
     // need to allow customisation of the test 
@@ -62,31 +76,28 @@
             }
     
         }
+        
+        
         async runMultiplicationTest() {
-            let userAnswer = 0;
             for (let i = 0; i < this.testLength; i++) {
                 document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
         
-                // Create a new Promise that resolves when the button is clicked
+                // Create a new Promise that resolves when the Enter key is pressed
                 const answerPromise = new Promise(resolve => {
-                    var button = document.getElementById("answer-button");
-                    $(document).keyup(function (keyInput) {
-                        if (keyInput.keyCode === 13) {
-                            userAnswer = document.getElementById("answer").value;
+                    var checkEnter = setInterval(function() {
+                        if (enterPressed) {
                             resolve();
-                            }
-                        });
-                    // button.addEventListener("click", function() {
-                    //     userAnswer = document.getElementById("answer").value;
-                    //     resolve();  // Resolve the Promise
-                    // });
+                            enterPressed = false;  // Reset the enterPressed variable
+                            clearInterval(checkEnter);  // Stop checking for the Enter key
+                        }
+                    }, 100);  // Check for the Enter key every 100ms
                 });
         
-                // Wait for the Promise to resolve (i.e., the button to be clicked)
+                // Wait for the Promise to resolve (i.e., the Enter key to be pressed)
                 await answerPromise;
-                
+        
                 document.getElementById("answer").value = "";
-                
+        
                 if (Number(userAnswer) === Number(this.answers[i])) {
                     console.log("Correct!");
                     this.testScore++;
@@ -97,6 +108,41 @@
             }
             console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
         }
+        // async runMultiplicationTest() {
+        //     let userAnswer = 0;
+        //     for (let i = 0; i < this.testLength; i++) {
+        //         document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
+        //
+        //         // Create a new Promise that resolves when the button is clicked
+        //         const answerPromise = new Promise(resolve => {
+        //             var button = document.getElementById("answer-button");
+        //             $(document).keyup(function (keyInput) {
+        //                 if (keyInput.keyCode === 13) {
+        //                     userAnswer = document.getElementById("answer").value;
+        //                     resolve();
+        //                     }
+        //                 });
+        //             // button.addEventListener("click", function() {
+        //             //     userAnswer = document.getElementById("answer").value;
+        //             //     resolve();  // Resolve the Promise
+        //             // });
+        //         });
+        //
+        //         // Wait for the Promise to resolve (i.e., the button to be clicked)
+        //         await answerPromise;
+        //        
+        //         document.getElementById("answer").value = "";
+        //        
+        //         if (Number(userAnswer) === Number(this.answers[i])) {
+        //             console.log("Correct!");
+        //             this.testScore++;
+        //         }
+        //         else {
+        //             console.log("Incorrect, answer is " + this.answers[i]);
+        //         }
+        //     }
+        //     console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
+        // }
         // runMultiplicationTest() {
         //     let userAnswer = 0;
         //     // loops through the number of questions specified by testLength and prints out the questions
