@@ -46,6 +46,7 @@
             this.secondaryOperands = []; // stores all the secondary operands if the calculation needs it 
             // e.g. multiplication, division, addition, subtraction
             this.answers = []; // stores all the answers to the questions
+            this.currentQuestion = 1;
         }
     
         generateTest() {
@@ -77,25 +78,21 @@
     
         }
         
-        
         async runMultiplicationTest() {
             for (let i = 0; i < this.testLength; i++) {
                 document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
         
-                // a promise that is resolved when the enter key is pressed 
                 const answerPromise = new Promise(resolve => {
-                    // setInterval(function, 100) means enter key is checked for every 100ms
                     var checkEnter = setInterval(function() {
                         if (enterPressed) {
                             resolve();
-                            // enterPressed reset for the next question
-                            enterPressed = false;  
-                            clearInterval(checkEnter);  // Stop checking for the Enter key
+                            this.currentQuestion += 1;
+                            enterPressed = false;
+                            clearInterval(checkEnter);
                         }
-                    }, 100);  
+                    }, 100);
                 });
         
-                // Wait for the Promise to resolve (i.e., the Enter key to be pressed)
                 await answerPromise;
         
                 document.getElementById("answer").value = "";
@@ -108,16 +105,53 @@
                     console.log("Incorrect, answer is " + this.answers[i]);
                 }
             }
-            
+        
             console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
-            
-                .then(function(response) {
-                    // success
-                }, 
-                 function(response) { // optional
-                    // failed
-                });
+            return this.testScore; // Return the test score when the test is complete
         }
+        
+        // async runMultiplicationTest() {
+        //     for (let i = 0; i < this.testLength; i++) {
+        //         document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
+        //
+        //         // a promise that is resolved when the enter key is pressed 
+        //         const answerPromise = new Promise(resolve => {
+        //             // setInterval(function, 100) means enter key is checked for every 100ms
+        //             var checkEnter = setInterval(function() {
+        //                 if (enterPressed) {
+        //                     resolve();
+        //                     this.currentQuestion += 1;
+        //                     // enterPressed reset for the next question
+        //                     enterPressed = false;  
+        //                     clearInterval(checkEnter);  // Stop checking for the Enter key
+        //                 }
+        //             }, 100);  
+        //         });
+        //
+        //         // Wait for the Promise to resolve (i.e., the Enter key to be pressed)
+        //         await answerPromise;
+        //
+        //         document.getElementById("answer").value = "";
+        //
+        //         if (Number(userAnswer) === Number(this.answers[i])) {
+        //             console.log("Correct!");
+        //             this.testScore++;
+        //         }
+        //         else {
+        //             console.log("Incorrect, answer is " + this.answers[i]);
+        //         }
+        //     }
+        //    
+        //     console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
+        //    
+        //    
+        //         // .then(function(response) {
+        //         //     // success
+        //         // }, 
+        //         //  function(response) { // optional
+        //         //     // failed
+        //         // });
+        // }
         // async runMultiplicationTest() {
         //     let userAnswer = 0;
         //     for (let i = 0; i < this.testLength; i++) {
@@ -193,7 +227,7 @@
                         // calculates the answer from the operands and appends it to the answers list
                         this.answers.push(this.operands[i] * this.secondaryOperands[i]);
                     }
-                    this.runMultiplicationTest();
+           
                     break;
                 // case "medium":
                 //     break;
@@ -234,11 +268,68 @@
     let firstTest = new Test(testInfoJson.Length, testInfoJson.Difficulty, testInfoJson.Operation);
     // running a multiplication test
     firstTest.generateMultiplicationTest();
-    firstTest.
-    $http({
-         url: "Practise/TestResults/",
-         method: "POST",
-         data: firstTest.testScore 
-    })
+    firstTest.runMultiplicationTest().then(testScore => {
+        console.log("Test should be finished");
+        // $.ajax({
+        //     url: "/Home/",
+        //     // data: testScore,
+        //     type: "GET",
+        // });
+        fetch("/Home/Index/")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Success:", data);
+            })
+            .catch(function(error) {
+                console.log("Error:", error);
+            });
+    });
+    
+    // while (firstTest.currentQuestion < 3) {
+    //     setTimeout(() => {  }, 10000);
+    //     }
+    // var result = firstTest.testScore;
+    // console.log(result + " result works");
+    // $.ajax({
+    //     url: "/Practise/TestResults/",
+    //     data: result, 
+    //     type: "POST",
+    //     });
+
+     
+    // const testFinishedPromise = new Promise (resolve => {
+    //     var testCompleted = setInterval(function () {
+    //         if (firstTest.currentQuestion === 3) {
+    //             console.log("Current Question is " + firstTest.currentQuestion);
+    //             resolve();
+    //             clearInterval(testCompleted);
+    //             }
+    //        
+    //         }, 100);
+    //     });
+    // async function waitToSendData() {
+    //     console.log("Inside the function");
+    //     await testFinishedPromise;
+    //     var result = firstTest.testScore;
+    //     console.log(result + " result works");
+    //     $.ajax({
+    //         url: "/Practise/TestResults/",
+    //         data: result, 
+    //         type: "POST",
+    //         });
+    //    
+    //     }
+    // waitToSendData();
+    // firstTest.
+    // $http({
+    //      url: "Practise/TestResults/",
+    //      method: "POST",
+    //      data: firstTest.testScore 
+    // })
     
 </script>

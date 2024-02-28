@@ -42,8 +42,9 @@ public class PractiseController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult TestResults(int score)
+    public IActionResult TestResults(int result)
     {
-        return RedirectToAction("TestResults", score);
+        return View(result);
+        // return RedirectToAction("TestResults", result);
     }
 }
