@@ -47,7 +47,9 @@ public class PractiseController : Controller
     }
 
     [HttpPost]
-    // [ValidateAntiForgeryToken]
+    [ValidateAntiForgeryToken]
+    // SESSION - POST
+    // receives results obj after user completes test and returns the test results view
     public IActionResult Session(ResultsModel theResults)
     {
         // take score out of results object and pass it in the results view

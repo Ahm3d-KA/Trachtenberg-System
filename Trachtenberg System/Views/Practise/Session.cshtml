@@ -266,15 +266,20 @@
     
     }
     // html.raw prevents html encoding of getting in the way of storing the JSON
+    // converting practise model to json
     let testInfoJson = @Html.Raw(Model.Practise);
     console.log(testInfoJson);
     // creating an object of the Test class
     let firstTest = new Test(testInfoJson.Length, testInfoJson.Difficulty, testInfoJson.Operation);
     // running a multiplication test
     firstTest.generateMultiplicationTest();
+    // when the multiplication test has finished running and the promise is fulfilled, this code executes
     firstTest.runMultiplicationTest().then(testScore => {
         console.log("Test should be finished");
+        // result value in form updates to real value
         document.getElementById("result").value = testScore;
+        // clicks the invisible button to send the form the backend
+        document.getElementById("submit-button").click();
         // $.ajax({
         //         url: "/Practise/Session",
         //         type: "POST",
