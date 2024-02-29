@@ -31,20 +31,27 @@ public class PractiseController : Controller
     {
         // turns the object into a json string
         string jsonObjPractise = JsonConvert.SerializeObject(objPractise);
+        CombinedPractiseResultsModel combinedModel = new CombinedPractiseResultsModel
+        {
+            Practise = jsonObjPractise,
+            ResultObj = new ResultsModel()
+        };
         // returns Session View with the json string to be used in Test class
-        return View("Session", jsonObjPractise);
+        return View("Session", combinedModel);
     }
-
+    
+    [HttpGet]
     public IActionResult TestResults()
     {
-        return View();
+        return View("TestResults");
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult TestResults(int result)
+    // [ValidateAntiForgeryToken]
+    public IActionResult Session(ResultsModel theResults)
     {
-        return View(result);
-        // return RedirectToAction("TestResults", result);
+        // take score out of results object and pass it in the results view
+        int score = theResults.Result;
+        return View("TestResults", score);
     }
 }

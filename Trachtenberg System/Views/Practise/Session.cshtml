@@ -1,6 +1,6 @@
 ﻿@using NuGet.Protocol
 @* catches model and makes it accessible to razor page via @Model *@
-@model string;
+@model CombinedPractiseResultsModel;
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Practise";
@@ -10,7 +10,11 @@
     <input type="text" placeholder="Answer" id="answer" class="input input-bordered w-full max-w-xs" />
     <button class="btn btn-secondary" id="answer-button">Enter answer</button>
 </div>
-
+<form method="post" asp-controller="Practise" asp-action="Session">
+    <input id="result" name="result" asp-for="ResultObj.Result"  />
+    <input id="submit-button" type="submit" value="pass to backend" style=""/>
+    
+</form>
 
 <script
   src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -262,7 +266,7 @@
     
     }
     // html.raw prevents html encoding of getting in the way of storing the JSON
-    let testInfoJson = @Html.Raw(Model);
+    let testInfoJson = @Html.Raw(Model.Practise);
     console.log(testInfoJson);
     // creating an object of the Test class
     let firstTest = new Test(testInfoJson.Length, testInfoJson.Difficulty, testInfoJson.Operation);
@@ -270,24 +274,37 @@
     firstTest.generateMultiplicationTest();
     firstTest.runMultiplicationTest().then(testScore => {
         console.log("Test should be finished");
+        document.getElementById("result").value = testScore;
+        // $.ajax({
+        //         url: "/Practise/Session",
+        //         type: "POST",
+        //         data: testScore,
+        //         success: function(response) {
+        //             console.log("Success:", response);
+        //         },
+        //         error: function(error) {
+        //             console.log("Error:", error);
+        //         }
+        //     });
+        // document.getElementById("submit-button").click();
         // $.ajax({
         //     url: "/Home/",
         //     // data: testScore,
         //     type: "GET",
         // });
-        fetch("/Home/Index/")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("HTTP error " + response.status);
-                }
-                return response.text();
-            })
-            .then(data => {
-                console.log("Success:", data);
-            })
-            .catch(function(error) {
-                console.log("Error:", error);
-            });
+        // fetch("/Home/Index/")
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error("HTTP error " + response.status);
+        //         }
+        //         return response.text();
+        //     })
+        //     .then(data => {
+        //         console.log("Success:", data);
+        //     })
+        //     .catch(function(error) {
+        //         console.log("Error:", error);
+        //     });
     });
     
     // while (firstTest.currentQuestion < 3) {
