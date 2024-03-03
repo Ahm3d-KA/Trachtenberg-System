@@ -12,7 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
-    "daisyui": "^4.7.2"
+    "daisyui": "^4.7.2",
+    "postcss": "^8.4.35"
   },
   "dependencies": {
     "prompt-sync": "^4.2.0"
