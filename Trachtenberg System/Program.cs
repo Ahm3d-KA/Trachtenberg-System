@@ -1,12 +1,19 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trachtenberg_System.Areas.Identity.Data;
+using Trachtenberg_System.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'Connection' not found.");
 
 builder.Services.AddDbContext<WebsiteUserDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<WebsiteUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<WebsiteUserDbContext>();
+
+// tells the application that it will us a SQL Server and to connect to that server using the DefaultConnection string
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
