@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Trachtenberg_System.Models;
 
 namespace Trachtenberg_System.Areas.Identity.Data;
 
@@ -10,5 +11,6 @@ namespace Trachtenberg_System.Areas.Identity.Data;
 public class WebsiteUser : IdentityUser
 {
     public string? AccountName { get; set; }
+    public UserStatsModel? UserStats { get; set; }
 }
 

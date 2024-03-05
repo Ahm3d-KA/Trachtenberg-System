@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Innofactor.EfCoreJsonValueConverter;
+using Trachtenberg_System.Areas.Identity.Data;
+
 namespace Trachtenberg_System.Models;
 
 
@@ -11,10 +13,11 @@ namespace Trachtenberg_System.Models;
 // principle (parent)
 public class UserStatsModel
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
+    public int WebsiteUserId { get; set; }
+    public WebsiteUser WebsiteUser { get; set; } = null!;
     // used as a reference to travel to high score record
     public HighScoresModel? HighScore { get; set; }
-    public string AccountName { get; set; }
 }
 
 // allows me to configure how the database is built. E.g. if I have a complex database that I want stored in a specific way

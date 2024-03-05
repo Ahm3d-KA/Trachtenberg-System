@@ -9,8 +9,8 @@ namespace Trachtenberg_System.Models;
 // dependent (child)
 public class HighScoresModel
 {
-    public int Id { get; set; }
-    public int MultiplicationEasyTestScore { get; set; }
+    public string Id { get; set; }
+    public int? MultiplicationEasyTestScore { get; set; }
     // stores id of corresponding user stats record
     public int UserStatsModelId { get; set; }
     // used as a reference by the database to travel to the user stats record

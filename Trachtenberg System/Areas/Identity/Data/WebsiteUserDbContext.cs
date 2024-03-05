@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Trachtenberg_System.Areas.Identity.Data;
+using Trachtenberg_System.Models;
 
 namespace Trachtenberg_System.Areas.Identity.Data;
 
@@ -13,14 +14,19 @@ public class WebsiteUserDbContext : IdentityDbContext<WebsiteUser>
     {
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
-        builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-        
+        modelBuilder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+        modelBuilder.Entity<WebsiteUser>()
+            .HasOne(e => e.UserStats)
+            .WithOne(e => e.WebsiteUser)
+            .HasForeignKey<UserStatsModel>(e => e.WebsiteUserId)
+            .IsRequired();
+
     }
 }
 
