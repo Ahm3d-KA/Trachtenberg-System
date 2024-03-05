@@ -24,7 +24,7 @@ namespace Trachtenberg_System.Data.StatsData
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserStatsId = table.Column<int>(type: "int", nullable: false),
-                    MultiplicationEasyTest = table.Column<int>(type: "int", nullable: false)
+                    MultiplicationEasyTestScore = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

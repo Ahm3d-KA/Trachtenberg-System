@@ -16,9 +16,9 @@ public class UserStatsModel
     public int HighScoresId { get; set; }
     [Required]
     public string AccountName { get; set; }
-    // public HighScoresClass? UserHighscores { get; set; }
     
 }
+    // public HighScoresClass? UserHighscores { get; set; }
 
 // allows me to configure how the database is built. E.g. if I have a complex database that I want stored in a specific way
 public class UserStatsModelConfiguration : IEntityTypeConfiguration<UserStatsModel>

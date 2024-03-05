@@ -11,5 +11,5 @@ public class ApplicationDbContext : DbContext
     }
     // represents the UserStats table in the TrachDb
     public DbSet<UserStatsModel> UserStats { get; set; }
-    public DbSet<HighScoresClass> HighScores { get; set; }
+    public DbSet<HighScoresModel> HighScores { get; set; }
 }

@@ -4,22 +4,37 @@ using Trachtenberg_System.Models;
 
 using Microsoft.AspNetCore.Identity;
 using Trachtenberg_System.Areas.Identity.Data;
+using Trachtenberg_System.Data;
 
 namespace Trachtenberg_System.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext _db;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
     {
         _logger = logger;
+        _db = db;
     }
 
     public IActionResult Index()
     {
+        CombinedUserStatsHighScoresClass combinedObj = new CombinedUserStatsHighScoresClass();
+        return View(combinedObj);
+    }
 
-        return View();
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Index(CombinedUserStatsHighScoresClass combinedObj)
+    {
+        combinedObj.UserStatsObj.HighScoresId = combinedObj.HighScoresObj.Id;
+        combinedObj.HighScoresObj.UserStatsId = combinedObj.UserStatsObj.Id;
+        _db.UserStats.Add(combinedObj.UserStatsObj);
+        _db.HighScores.Add(combinedObj.HighScoresObj);
+        _db.SaveChanges();
+        return View("Index");
     }
 
     public IActionResult Privacy()

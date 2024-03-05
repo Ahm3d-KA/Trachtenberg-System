@@ -21,7 +21,7 @@ namespace Trachtenberg_System.Data.StatsData
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresClass", b =>
+            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,7 +29,7 @@ namespace Trachtenberg_System.Data.StatsData
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("MultiplicationEasyTest")
+                    b.Property<int>("MultiplicationEasyTestScore")
                         .HasColumnType("int");
 
                     b.Property<int>("UserStatsId")

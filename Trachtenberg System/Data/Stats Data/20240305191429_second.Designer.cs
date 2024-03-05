@@ -11,8 +11,8 @@ using Trachtenberg_System.Data;
 namespace Trachtenberg_System.Data.StatsData
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240304200031_even more advanced")]
-    partial class evenmoreadvanced
+    [Migration("20240305191429_second")]
+    partial class second
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Trachtenberg_System.Data.StatsData
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresClass", b =>
+            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
