@@ -21,18 +21,15 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        CombinedUserStatsHighScoresClass combinedObj = new CombinedUserStatsHighScoresClass();
-        return View(combinedObj);
+        UserStatsModel statsObj = new UserStatsModel();
+        return View(statsObj);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Index(CombinedUserStatsHighScoresClass combinedObj)
+    public IActionResult Index(UserStatsModel statsObj)
     {
-        combinedObj.UserStatsObj.HighScoresId = combinedObj.HighScoresObj.Id;
-        combinedObj.HighScoresObj.UserStatsId = combinedObj.UserStatsObj.Id;
-        _db.UserStats.Add(combinedObj.UserStatsObj);
-        _db.HighScores.Add(combinedObj.HighScoresObj);
+        _db.UserStats.Add(statsObj);
         _db.SaveChanges();
         return View("Index");
     }

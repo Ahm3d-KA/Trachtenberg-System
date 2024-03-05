@@ -11,8 +11,8 @@ using Trachtenberg_System.Data;
 namespace Trachtenberg_System.Data.StatsData
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240305191429_second")]
-    partial class second
+    [Migration("20240305203205_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,10 +35,13 @@ namespace Trachtenberg_System.Data.StatsData
                     b.Property<int>("MultiplicationEasyTestScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserStatsId")
+                    b.Property<int>("UserStatsModelId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserStatsModelId")
+                        .IsUnique();
 
                     b.ToTable("HighScores");
                 });
@@ -55,12 +58,25 @@ namespace Trachtenberg_System.Data.StatsData
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HighScoresId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("UserStats");
+                });
+
+            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresModel", b =>
+                {
+                    b.HasOne("Trachtenberg_System.Models.UserStatsModel", "UserStatsModel")
+                        .WithOne("HighScore")
+                        .HasForeignKey("Trachtenberg_System.Models.HighScoresModel", "UserStatsModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserStatsModel");
+                });
+
+            modelBuilder.Entity("Trachtenberg_System.Models.UserStatsModel", b =>
+                {
+                    b.Navigation("HighScore");
                 });
 #pragma warning restore 612, 618
         }

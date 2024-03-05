@@ -1,4 +1,4 @@
-﻿@model CombinedUserStatsHighScoresClass
+﻿@model UserStatsModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,18 +7,18 @@
 
 <div class="flex flex-col items-center w-full pt-2 gap-4">
     <div>
-        <h1 class="text-4xl">Trachtenberg system weeeb app</h1>
+        <h1 class="text-4xl">Trachtenberg system web app</h1>
     </div>
         
     @* <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" /> *@
     <div>
         <form method="post" asp-controller="Home" asp-action="Index">
-            <label asp-for="UserStatsObj.AccountName">Account Name</label>
-            <input asp-for="UserStatsObj.AccountName" type="text" class="input input-bordered w-full max-w-xs"/>
+            <label asp-for="AccountName">Account Name</label>
+            <input asp-for="AccountName" type="text" class="input input-bordered w-full max-w-xs"/>
             
             <br/>
-            <label asp-for="HighScoresObj.MultiplicationEasyTestScore">Highscore</label>
-            <input asp-for="HighScoresObj.MultiplicationEasyTestScore" type="text" class="input input-bordered w-full max-w-xs"/>
+            <label asp-for="HighScore.MultiplicationEasyTestScore">Highscore</label>
+            <input asp-for="HighScore.MultiplicationEasyTestScore" type="text" class="input input-bordered w-full max-w-xs"/>
             
             <input type="submit" value="Click:)" class="btn btn-primary"/>
         </form>

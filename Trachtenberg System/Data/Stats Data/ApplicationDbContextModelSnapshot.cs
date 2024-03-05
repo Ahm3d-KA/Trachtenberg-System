@@ -32,10 +32,13 @@ namespace Trachtenberg_System.Data.StatsData
                     b.Property<int>("MultiplicationEasyTestScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserStatsId")
+                    b.Property<int>("UserStatsModelId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserStatsModelId")
+                        .IsUnique();
 
                     b.ToTable("HighScores");
                 });
@@ -52,12 +55,25 @@ namespace Trachtenberg_System.Data.StatsData
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HighScoresId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("UserStats");
+                });
+
+            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresModel", b =>
+                {
+                    b.HasOne("Trachtenberg_System.Models.UserStatsModel", "UserStatsModel")
+                        .WithOne("HighScore")
+                        .HasForeignKey("Trachtenberg_System.Models.HighScoresModel", "UserStatsModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserStatsModel");
+                });
+
+            modelBuilder.Entity("Trachtenberg_System.Models.UserStatsModel", b =>
+                {
+                    b.Navigation("HighScore");
                 });
 #pragma warning restore 612, 618
         }
