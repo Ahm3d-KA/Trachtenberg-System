@@ -90,6 +90,7 @@
 
     <ItemGroup>
       <Folder Include="Data\Stats Data\" />
+      <Folder Include="Data\User Data\" />
     </ItemGroup>
 
 
