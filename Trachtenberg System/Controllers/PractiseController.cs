@@ -13,15 +13,17 @@ public class PractiseController : Controller
 {
     private readonly ILogger<PractiseController> _logger;
     private readonly ApplicationUserDbContext _db;
-    private readonly UserManager<ApplicationUser> _userDb;
+    private readonly UserManager<ApplicationUser> _userManager;
     
 
     public PractiseController(ILogger<PractiseController> logger, ApplicationUserDbContext db, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _db = db;
-        _userDb = userManager;
+        _userManager = userManager;
     }
+    
+    private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     // GET
     public IActionResult Index()
     {
@@ -68,17 +70,41 @@ public class PractiseController : Controller
     // receives results obj after user completes test and returns the test results view
     public IActionResult Session(ResultsModel theResults)
     {
-        _db.SaveChanges();
-        // take score out of results object and pass it in the results view
-        // int score = theResults.Result;
-        var anyUser = _db.Users.First();
-        anyUser.HighScores = new HighScoresModel();
-        anyUser.HighScores.MultiplicationEasyTestScore = 5;
-        _db.Update(anyUser);
-        _db.SaveChanges();
-
-        var anotherUser = _userDb.Users.First();
         
-        return View("TestResults", 5);
+        // gets logged in user id
+        var userId = _userManager.GetUserId(HttpContext.User);
+        var loggedInUser = _db.Users.Find(userId);
+
+        ResultsOutputModel resultsOutput = new ResultsOutputModel();
+        resultsOutput.Result = theResults.Result;
+
+        // checks to see if the model exists in the db to prevent null reference
+        if (loggedInUser.UserStats == null)
+        {
+            loggedInUser.UserStats = new UserStatsModel();
+        }
+        
+        // played one more game
+        loggedInUser.UserStats.NumberOfTestsCompleted += 1;
+        
+         
+        if (loggedInUser.HighScores == null)
+        {
+            loggedInUser.HighScores = new HighScoresModel();
+        }
+        
+        // checks to see if the score is a new highscore
+        if (loggedInUser.HighScores.MultiplicationEasyTestScore < theResults.Result)
+        {
+            // updates the highscore
+            loggedInUser.HighScores.MultiplicationEasyTestScore = theResults.Result;
+            // used to tell user it is a new highscore
+            resultsOutput.HighScore = true;
+        }
+        _db.Update(loggedInUser);
+        _db.SaveChanges();  
+
+        // returns test results view with results obj
+        return View("TestResults", resultsOutput);
     }
 }
