@@ -14,10 +14,9 @@ namespace Trachtenberg_System.Models;
 public class UserStatsModel
 {
     public int Id { get; set; }
+    public string AccountName { get; set; }
     // used as a reference to travel to high score record
-    public int WebsiteUserId { get; set; }
-    public ApplicationUser ApplicationUser { get; set; } = null!;
-    public HighScoresModel? HighScore { get; set; }
+    public int NumberOfTestsCompleted { get; set; }
 }
 
 // allows me to configure how the database is built. E.g. if I have a complex database that I want stored in a specific way

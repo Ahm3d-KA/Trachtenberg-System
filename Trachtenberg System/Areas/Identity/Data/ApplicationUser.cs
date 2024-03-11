@@ -14,6 +14,7 @@ public class ApplicationUser : IdentityUser
     public string? AccountName { get; set; } 
     // public int HighScoreId { get; set; }
     public HighScoresModel? HighScores { get; set; }
+    public UserStatsModel? UserStats { get; set; }
     
 }
 

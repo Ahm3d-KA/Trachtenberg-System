@@ -95,6 +95,7 @@
     <ItemGroup>
       <Folder Include="Data\Stats Data\" />
       <Folder Include="Data\User Data\" />
+      <Folder Include="Pages\" />
     </ItemGroup>
 
 

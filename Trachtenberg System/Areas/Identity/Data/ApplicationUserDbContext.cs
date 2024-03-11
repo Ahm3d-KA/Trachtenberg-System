@@ -13,9 +13,8 @@ public class ApplicationUserDbContext : IdentityDbContext<ApplicationUser>
         : base(options)
     {
     }
-    // public DbSet<UserStatsModel> UserStats { get; set; }
     public DbSet<HighScoresModel> HighScores { get; set; }
-    public DbSet<ApplicationUser> ApplicationUsersTesting { get; set; }
+    public DbSet<UserStatsModel> UserStats { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

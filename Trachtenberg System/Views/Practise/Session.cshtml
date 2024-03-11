@@ -11,7 +11,7 @@
     <button class="btn btn-secondary" id="answer-button">Enter answer</button>
 </div>
 <form method="post" asp-controller="Practise" asp-action="Session">
-    <input asp-for="ResultObj.UserId"></input>
+    @* <input asp-for="ResultObj.UserId"></input> *@
     <input id="result" name="result" asp-for="ResultObj.Result"/>
     <input id="submit-button" type="submit" value="pass to backend" style=""/>
 

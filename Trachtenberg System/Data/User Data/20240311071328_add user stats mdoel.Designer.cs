@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trachtenberg_System.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using Trachtenberg_System.Areas.Identity.Data;
 namespace Trachtenberg_System.Data.UserData
 {
     [DbContext(typeof(ApplicationUserDbContext))]
-    partial class WebsiteUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311071328_add user stats mdoel")]
+    partial class adduserstatsmdoel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
