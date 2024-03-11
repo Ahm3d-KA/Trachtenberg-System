@@ -9,10 +9,11 @@ namespace Trachtenberg_System.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the WebsiteUser class
 // parent
-public class WebsiteUser : IdentityUser
+public class ApplicationUser : IdentityUser
 {
-    public HighScoresModel? HighScoresRef { get; set; }
     public string? AccountName { get; set; } 
+    // public int HighScoreId { get; set; }
+    public HighScoresModel? HighScores { get; set; }
     
 }
 

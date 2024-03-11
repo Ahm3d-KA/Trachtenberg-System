@@ -20,10 +20,10 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<WebsiteUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<WebsiteUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -119,7 +119,7 @@ namespace Trachtenberg_System.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     // Redirect to logged in controller as only files in wwwroot can be accessed with a static url
-                    return RedirectToAction("Index", "LoggedIn");
+                    return RedirectToAction("Index", "LoggedIn", new { email = Input.Email });
                     // return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

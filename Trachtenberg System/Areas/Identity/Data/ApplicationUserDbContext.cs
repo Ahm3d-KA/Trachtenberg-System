@@ -7,14 +7,15 @@ using Trachtenberg_System.Models;
 
 namespace Trachtenberg_System.Areas.Identity.Data;
 
-public class WebsiteUserDbContext : IdentityDbContext<WebsiteUser>
+public class ApplicationUserDbContext : IdentityDbContext<ApplicationUser>
 {
-    public WebsiteUserDbContext(DbContextOptions<WebsiteUserDbContext> options)
+    public ApplicationUserDbContext(DbContextOptions<ApplicationUserDbContext> options)
         : base(options)
     {
     }
     // public DbSet<UserStatsModel> UserStats { get; set; }
     public DbSet<HighScoresModel> HighScores { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsersTesting { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -25,18 +26,20 @@ public class WebsiteUserDbContext : IdentityDbContext<WebsiteUser>
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
         // applying constraints in userstatsmodel file
 
-        builder.Entity<WebsiteUser>()
-            .HasOne(e => e.HighScoresRef)
-            .WithOne(e => e.WebsiteUser)
-            .HasForeignKey<HighScoresModel>(e => e.Id)
-            .IsRequired();
-        
+        // builder.Entity<HighScoresModel>()
+        //     .HasOne(e => e.ApplicationUser)
+        //     .WithOne(e => e.HighScoresRef)
+        //     .HasForeignKey<HighScoresModel>(e => e.ApplicationUserId)
+        //     .IsRequired();
+
+
+
     }
 }
 
-public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<WebsiteUser>
+public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
-    public void Configure(EntityTypeBuilder<WebsiteUser> builder)
+    public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
         builder.Property(item => item.AccountName).HasMaxLength(100);
         builder.Property(item => item.AccountName).IsRequired();

@@ -5,7 +5,7 @@ namespace Trachtenberg_System.Controllers;
 public class LoggedInController : Controller
 {
     // GET
-    public IActionResult Index()
+    public IActionResult Index(string loggedIn)
     {
         return View();
     }

@@ -10,7 +10,7 @@ using Trachtenberg_System.Areas.Identity.Data;
 
 namespace Trachtenberg_System.Data.UserData
 {
-    [DbContext(typeof(WebsiteUserDbContext))]
+    [DbContext(typeof(ApplicationUserDbContext))]
     partial class WebsiteUserDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -183,6 +183,9 @@ namespace Trachtenberg_System.Data.UserData
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("HighScoresId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -218,6 +221,8 @@ namespace Trachtenberg_System.Data.UserData
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HighScoresId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -231,8 +236,11 @@ namespace Trachtenberg_System.Data.UserData
 
             modelBuilder.Entity("Trachtenberg_System.Models.HighScoresModel", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("MultiplicationEasyTestScore")
                         .HasColumnType("int");
@@ -293,20 +301,13 @@ namespace Trachtenberg_System.Data.UserData
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Trachtenberg_System.Models.HighScoresModel", b =>
-                {
-                    b.HasOne("Trachtenberg_System.Areas.Identity.Data.WebsiteUser", "WebsiteUser")
-                        .WithOne("HighScoresRef")
-                        .HasForeignKey("Trachtenberg_System.Models.HighScoresModel", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WebsiteUser");
-                });
-
             modelBuilder.Entity("Trachtenberg_System.Areas.Identity.Data.WebsiteUser", b =>
                 {
-                    b.Navigation("HighScoresRef");
+                    b.HasOne("Trachtenberg_System.Models.HighScoresModel", "HighScores")
+                        .WithMany()
+                        .HasForeignKey("HighScoresId");
+
+                    b.Navigation("HighScores");
                 });
 #pragma warning restore 612, 618
         }

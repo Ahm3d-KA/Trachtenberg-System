@@ -16,7 +16,7 @@ public class UserStatsModel
     public int Id { get; set; }
     // used as a reference to travel to high score record
     public int WebsiteUserId { get; set; }
-    public WebsiteUser WebsiteUser { get; set; } = null!;
+    public ApplicationUser ApplicationUser { get; set; } = null!;
     public HighScoresModel? HighScore { get; set; }
 }
 

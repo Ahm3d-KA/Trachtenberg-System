@@ -6,9 +6,9 @@ using Trachtenberg_System.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'Connection' not found.");
 
-builder.Services.AddDbContext<WebsiteUserDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationUserDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<WebsiteUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<WebsiteUserDbContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationUserDbContext>();
 
 // tells the application that it will us a SQL Server and to connect to that server using the DefaultConnection string
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(

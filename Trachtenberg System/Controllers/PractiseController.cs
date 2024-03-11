@@ -1,11 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Trachtenberg_System.Areas.Identity.Data;
 using Trachtenberg_System.Models;
 
 namespace Trachtenberg_System.Controllers;
 
+
 public class PractiseController : Controller
 {
+    private readonly ILogger<PractiseController> _logger;
+    private readonly ApplicationUserDbContext _db;
+    private readonly UserManager<ApplicationUser> _userDb;
+    
+
+    public PractiseController(ILogger<PractiseController> logger, ApplicationUserDbContext db, UserManager<ApplicationUser> userManager)
+    {
+        _logger = logger;
+        _db = db;
+        _userDb = userManager;
+    }
     // GET
     public IActionResult Index()
     {
@@ -52,8 +68,17 @@ public class PractiseController : Controller
     // receives results obj after user completes test and returns the test results view
     public IActionResult Session(ResultsModel theResults)
     {
+        _db.SaveChanges();
         // take score out of results object and pass it in the results view
-        int score = theResults.Result;
-        return View("TestResults", score);
+        // int score = theResults.Result;
+        var anyUser = _db.Users.First();
+        anyUser.HighScores = new HighScoresModel();
+        anyUser.HighScores.MultiplicationEasyTestScore = 5;
+        _db.Update(anyUser);
+        _db.SaveChanges();
+
+        var anotherUser = _userDb.Users.First();
+        
+        return View("TestResults", 5);
     }
 }
