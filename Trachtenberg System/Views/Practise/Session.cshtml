@@ -13,6 +13,7 @@
 <form method="post" asp-controller="Practise" asp-action="Session">
     @* <input asp-for="ResultObj.UserId"></input> *@
     <input id="result" name="result" asp-for="ResultObj.Result"/>
+    <input id="time-taken" name="time-taken" asp-for="ResultObj.TimeTaken" />
     <input id="submit-button" type="submit" value="pass to backend" style=""/>
 
 </form>
@@ -52,6 +53,15 @@
             // e.g. multiplication, division, addition, subtraction
             this.answers = []; // stores all the answers to the questions
             this.currentQuestion = 1;
+            
+            // new properties
+            this.grabTime = new Date()
+            this.timeTestStarted = 0;
+            this.timeTestEnded = 0;
+            this.timeTaken = 0;
+            this.standardisedScore = 0;
+            this.accuracy = 0;
+            this.questionsWrong = [{}];
         }
     
         generateTest() {
@@ -84,6 +94,7 @@
         }
         
         async runMultiplicationTest() {
+            this.timeTestStarted = this.grabTime.getTime();
             for (let i = 0; i < this.testLength; i++) {
                 document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
         
@@ -110,7 +121,9 @@
                     console.log("Incorrect, answer is " + this.answers[i]);
                 }
             }
-        
+            this.timeTestEnded = this.grabTime.getTime();
+            // get time taken in seconds 
+            this.timeTaken = (this.timeTestEnded - this.timeTestStarted) / 1000;
             console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
             return this.testScore; // Return the test score when the test is complete
         }
@@ -279,6 +292,7 @@
         console.log("Test should be finished");
         // result value in form updates to real value
         document.getElementById("result").value = testScore;
+        document.getElementById("time-taken").value = firstTest.timeTaken;
         // clicks the invisible button to send the form the backend
         document.getElementById("submit-button").click();
         // $.ajax({

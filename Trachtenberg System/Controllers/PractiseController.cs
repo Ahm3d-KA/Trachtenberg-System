@@ -75,7 +75,7 @@ public class PractiseController : Controller
         var userId = _userManager.GetUserId(HttpContext.User);
         var loggedInUser = _db.Users.Find(userId);
 
-        ResultsOutputModel resultsOutput = new ResultsOutputModel();
+        ResultsModel resultsOutput = new ResultsModel();
         resultsOutput.Result = theResults.Result;
 
         // checks to see if the model exists in the db to prevent null reference
