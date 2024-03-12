@@ -83,6 +83,11 @@ public class PractiseController : Controller
         {
             loggedInUser.UserStats = new UserStatsModel();
         }
+
+        if (loggedInUser.UserStats.AccountName == null)
+        {
+            loggedInUser.UserStats.AccountName = loggedInUser.AccountName;
+        }
         
         // played one more game
         loggedInUser.UserStats.NumberOfTestsCompleted += 1;

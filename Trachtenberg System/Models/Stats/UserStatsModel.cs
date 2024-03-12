@@ -14,7 +14,7 @@ namespace Trachtenberg_System.Models;
 public class UserStatsModel
 {
     public int Id { get; set; }
-    public string AccountName { get; set; }
+    public string? AccountName { get; set; }
     // used as a reference to travel to high score record
     public int NumberOfTestsCompleted { get; set; }
 }

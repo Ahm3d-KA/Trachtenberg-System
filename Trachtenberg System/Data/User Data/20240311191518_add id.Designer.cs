@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trachtenberg_System.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using Trachtenberg_System.Areas.Identity.Data;
 namespace Trachtenberg_System.Data.UserData
 {
     [DbContext(typeof(ApplicationUserDbContext))]
-    partial class WebsiteUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311191518_add id")]
+    partial class addid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,9 +222,6 @@ namespace Trachtenberg_System.Data.UserData
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("UserStatsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("HighScoresId");
@@ -233,8 +233,6 @@ namespace Trachtenberg_System.Data.UserData
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("UserStatsId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -266,10 +264,17 @@ namespace Trachtenberg_System.Data.UserData
                     b.Property<string>("AccountName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("NumberOfTestsCompleted")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique()
+                        .HasFilter("[ApplicationUserId] IS NOT NULL");
 
                     b.ToTable("UserStats");
                 });
@@ -331,12 +336,18 @@ namespace Trachtenberg_System.Data.UserData
                         .WithMany()
                         .HasForeignKey("HighScoresId");
 
-                    b.HasOne("Trachtenberg_System.Models.UserStatsModel", "UserStats")
-                        .WithMany()
-                        .HasForeignKey("UserStatsId");
-
                     b.Navigation("HighScores");
+                });
 
+            modelBuilder.Entity("Trachtenberg_System.Models.UserStatsModel", b =>
+                {
+                    b.HasOne("Trachtenberg_System.Areas.Identity.Data.ApplicationUser", null)
+                        .WithOne("UserStats")
+                        .HasForeignKey("Trachtenberg_System.Models.UserStatsModel", "ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Trachtenberg_System.Areas.Identity.Data.ApplicationUser", b =>
+                {
                     b.Navigation("UserStats");
                 });
 #pragma warning restore 612, 618
