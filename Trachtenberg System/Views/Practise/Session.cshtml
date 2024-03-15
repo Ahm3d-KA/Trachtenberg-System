@@ -13,7 +13,10 @@
 <form method="post" asp-controller="Practise" asp-action="Session">
     @* <input asp-for="ResultObj.UserId"></input> *@
     <input id="result" name="result" asp-for="ResultObj.Result"/>
-    <input id="time-taken" name="time-taken" asp-for="ResultObj.TimeTaken" />
+    <input id="timetaken" name="timetaken" asp-for="ResultObj.TimeTaken" />
+    <input id="numberofquestions" name="numberofquestions" asp-for="ResultObj.NumberOfQuestions" />
+    @* <input id="testlength" name="testlength" asp-for="ResultObj.TestLength" /> *@
+    <input id="difficulty" name="difficulty" asp-for="ResultObj.Difficulty" />
     <input id="submit-button" type="submit" value="pass to backend" style=""/>
 
 </form>
@@ -55,7 +58,7 @@
             this.currentQuestion = 1;
             
             // new properties
-            this.grabTime = new Date()
+            this.grabTime = new Date();
             this.timeTestStarted = 0;
             this.timeTestEnded = 0;
             this.timeTaken = 0;
@@ -94,7 +97,12 @@
         }
         
         async runMultiplicationTest() {
-            this.timeTestStarted = this.grabTime.getTime();
+            var findTime = new Date();
+            // this.timeTestStarted = ((this.findTime.getMinutes())*60) + this.findTime.getSeconds();
+            this.timeTestStarted = new Date();
+            console.log("time test started");
+            
+            console.log(this.timeTestStarted);
             for (let i = 0; i < this.testLength; i++) {
                 document.getElementById("Question").innerHTML = this.operands[i] + " x " + this.secondaryOperands[i] + ":";
         
@@ -121,9 +129,15 @@
                     console.log("Incorrect, answer is " + this.answers[i]);
                 }
             }
-            this.timeTestEnded = this.grabTime.getTime();
+            var findTime2 = new Date();
+            // this.timeTestEnded = ((this.findTime2.getMinutes())*60) + this.findTime2.getSeconds();
+            console.log("time test ended");
+            console.log(this.timeTestEnded);
             // get time taken in seconds 
-            this.timeTaken = (this.timeTestEnded - this.timeTestStarted) / 1000;
+            // this.timeTaken = (this.timeTestEnded - this.timeTestStarted);
+            this.timeTaken =  Math.round(((new Date()).getTime() - this.timeTestStarted.getTime()) / 1000);
+            console.log("time taken:");
+            console.log(this.timeTaken);
             console.log("Test complete! Your score is: " + this.testScore + "/" + this.testLength);
             return this.testScore; // Return the test score when the test is complete
         }
@@ -292,7 +306,12 @@
         console.log("Test should be finished");
         // result value in form updates to real value
         document.getElementById("result").value = testScore;
-        document.getElementById("time-taken").value = firstTest.timeTaken;
+        var theTimeTaken = firstTest.timeTaken;
+        let theNumberOfQuestions = firstTest.testLength;
+        document.getElementById("timetaken").value = theTimeTaken;
+        document.getElementById("numberofquestions").value = theNumberOfQuestions;
+        // document.getElementById("testlength").value = testInfoJson.Length;
+        document.getElementById("difficulty").value = testInfoJson.Difficulty;
         // clicks the invisible button to send the form the backend
         document.getElementById("submit-button").click();
         // $.ajax({

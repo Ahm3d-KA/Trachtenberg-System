@@ -6,10 +6,13 @@ namespace Trachtenberg_System.Models;
 public class ResultsModel
 {
     public int Result { get; set; }
-    public double TimeTaken { get; set; }
+    public int NumberOfQuestions { get; set; }
+    public LengthEnum TestLength { get; set; }
+    public DifficultyEnum Difficulty { get; set; }
+    public int TimeTaken { get; set; }
     public int StandardisedScore { get; set; }
     public double Accuracy { get; set; }
     public bool HighScore { get; set; }
-    public QuestionsWrongStruct QuestionsWrong { get; set; }
+    public List<QuestionsWrongStruct> QuestionsWrong { get; set; }
     // public string UserId { get; set; }
 }

@@ -4,4 +4,38 @@
     <h1 class="text-4xl">
         You scored @Model.Result out of 5!
     </h1>
+    <div class="flex flex-col items-center px-48 gap-4">
+        
+        <div class="flex flex-row items-center gap-2">
+            <span class="text-xl">Score:</span>
+            <span class="text-xl">@Model.StandardisedScore</span>
+        </div>
+        
+        <div class="flex flex-row items-center gap-2">
+            <span class="text-xl">Test Length:</span>
+            <span class="text-xl">@Model.TestLength</span>
+        </div>
+        
+        <div class="flex flex-row items-center gap-2">
+            <span class="text-xl">Difficulty:</span>
+            <span class="text-xl">@Model.Difficulty</span>
+        </div>
+        
+        <div class="flex flex-row items-center gap-2">
+            <span class="text-xl">Time Taken:</span>
+            <span class="text-xl">@Model.TimeTaken</span>
+        </div>
+        
+        <div class="flex flex-row items-center gap-2">
+            <span class="text-xl">Accuracy</span>
+            <span class="text-xl">@Model.Accuracy</span>
+        </div>
+        
+        <div class="flex flex-row items-center gap-2">
+            <span class="text-xl">Highscore?</span>
+            <span class="text-xl">@Model.HighScore</span>
+        </div>
+        
+        
+    </div>
 </div>
