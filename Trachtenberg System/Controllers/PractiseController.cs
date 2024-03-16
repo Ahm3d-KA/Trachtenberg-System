@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Trachtenberg_System.Areas.Identity.Data;
 using Trachtenberg_System.Models;
@@ -14,9 +15,23 @@ public class PractiseController : Controller
     private readonly ILogger<PractiseController> _logger;
     private readonly ApplicationUserDbContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
-
+    
+    
+    
     [NonAction]
-    // FIX TIME LIMIT
+    // adds the new test accuracy to the average and returns the new average
+    public double CalculateNewAverageAccuracy(double oldAverageAccuracy, double testAccuracy,
+        int oldNumberOfTestsCompleted)
+    {
+        var total = oldAverageAccuracy * oldNumberOfTestsCompleted;
+        total = total + testAccuracy;
+        double newAverageAccuracy = total / (oldNumberOfTestsCompleted + 1);
+        newAverageAccuracy = Math.Round(newAverageAccuracy, 2);
+        return newAverageAccuracy;
+    }
+    
+    [NonAction]
+    // FIX TIME LIMIT IF THEY DO TEST SUPER FAST THEY STILL GET POINTS - FIXED 
     // makes timelimit and accuracy to numbers between 1 and 0, adds them together
     // then turns it into a number between 1 and 1000 taking into account difficulty
     public int CalculateStandardScore(int timeTaken, LengthEnum testLength, double accuracy, DifficultyEnum difficulty)
@@ -78,6 +93,20 @@ public class PractiseController : Controller
         double intermediateScore = (timeComponent + accuracyComponent) * difficultyModifier;
         // scores is a whole number between 0 and 1000
         int standardisedScore = (int)(intermediateScore * 50 * 10);
+        
+        
+        // prevents them from doing test really fast and still getting a score
+        if (accuracy == 0)
+        {
+            standardisedScore = 0;
+        }
+        
+        // penalises low accuracy
+        if (accuracy < 50)
+        {
+            standardisedScore = (int)(standardisedScore * 0.75);
+        }
+        
         return standardisedScore;
 
     }
@@ -150,8 +179,9 @@ public class PractiseController : Controller
         
         // gets logged in user id
         var userId = _userManager.GetUserId(HttpContext.User);
-        var loggedInUser = _db.Users.Find(userId);
-
+        // eager loading - makes sure to load child entities aswell so they can be accessed
+        var loggedInUser = _db.Users.Include(e => e.HighScores).Include(e => e.UserStats).FirstOrDefault(e => e.Id == userId);
+        
         resultsOutput.Result = theResults.Result;
         resultsOutput.Accuracy = theResults.Accuracy;
         resultsOutput.NumberOfQuestions = theResults.NumberOfQuestions;
@@ -168,6 +198,18 @@ public class PractiseController : Controller
         {
             loggedInUser.UserStats.AccountName = loggedInUser.AccountName;
         }
+
+        if (loggedInUser.UserStats.NumberOfTestsCompleted == 0)
+        {
+            // adds average accuracy
+            loggedInUser.UserStats.AverageAccuracy = theResults.Accuracy;
+        }
+        else
+        {
+            // updates average accuracy
+            loggedInUser.UserStats.AverageAccuracy = CalculateNewAverageAccuracy(loggedInUser.UserStats.AverageAccuracy,
+                theResults.Accuracy, loggedInUser.UserStats.NumberOfTestsCompleted);
+        }
         
         // played one more game
         loggedInUser.UserStats.NumberOfTestsCompleted += 1;
@@ -179,10 +221,10 @@ public class PractiseController : Controller
         }
         
         // checks to see if the score is a new highscore
-        if (loggedInUser.HighScores.MultiplicationEasyTestScore < theResults.Result)
+        if (loggedInUser.HighScores.MultiplicationEasyTestScore < theResults.StandardisedScore)
         {
             // updates the highscore
-            loggedInUser.HighScores.MultiplicationEasyTestScore = theResults.Result;
+            loggedInUser.HighScores.MultiplicationEasyTestScore = theResults.StandardisedScore;
             // used to tell user it is a new highscore
             resultsOutput.HighScore = true;
         }

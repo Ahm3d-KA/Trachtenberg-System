@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Versioning;
 using Trachtenberg_System.Areas.Identity.Data;
 using Trachtenberg_System.Models;
@@ -22,15 +23,17 @@ public class StatsController : Controller
     {
         _db.SaveChanges();
         var userId = _userManager.GetUserId(HttpContext.User);
-        var loggedInUser = _db.Users.Find(userId);
-        var stats = _db.UserStats
-            .Where(s => s.AccountName == loggedInUser.AccountName)
-            .Select(s => s.NumberOfTestsCompleted);
+        
+        // FIX ISSUE HERE IT IS USING LAZY LOADING
+        var loggedInUser = _db.Users.Include(e => e.HighScores).Include(e => e.UserStats).FirstOrDefault(e => e.Id == userId);
+        // var stats = _db.UserStats
+        //     .Where(s => s.AccountName == loggedInUser.AccountName)
+        //     .Select(s => s.NumberOfTestsCompleted);
         
         var userStats = loggedInUser.UserStats;
         
         // loggedInUser.UserStats.NumberOfTestsCompleted = 4;
-        return View("Index", stats.FirstOrDefault());
+        return View("Index", loggedInUser);
     }
 }
     

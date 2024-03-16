@@ -1,12 +1,24 @@
-﻿@model int
+﻿@model Trachtenberg_System.Areas.Identity.Data.ApplicationUser
 
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Practise";
 }
+@if (Model.UserStats == null || Model.HighScores == null)
+{
+    <h1 class="text-4xl">No stats available go and complete some practise first</h1>
+}
+
+@if (Model.UserStats != null && Model.HighScores != null)
+{
 <div class="flex flex-col items-center p-2 w-full">
     <h1 class="text-4xl">Hello</h1>
     <h2 class="text-3xl">These are your stats</h2>
-    <p>You have completed @Model tests</p>
+    <div class="flex flex-col items-center">
+        <p>Tests completed: @Model.UserStats.NumberOfTestsCompleted</p>
+        <p>Multiplication Easy Test High score: @Model.HighScores.MultiplicationEasyTestScore</p>
+        <p>Average Accuracy: @Model.UserStats.AverageAccuracy</p>
+    </div>
     
 </div>
+}
