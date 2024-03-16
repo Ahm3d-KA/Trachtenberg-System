@@ -79,6 +79,9 @@ public class PractiseController : Controller
             case DifficultyEnum.Expert:
                 difficultyModifier = 1;
                 break;
+            case DifficultyEnum.Legend:
+                difficultyModifier = 1.2;
+                break;
             default:
                 difficultyModifier = 1;
                 break;
@@ -186,6 +189,8 @@ public class PractiseController : Controller
         resultsOutput.Accuracy = theResults.Accuracy;
         resultsOutput.NumberOfQuestions = theResults.NumberOfQuestions;
         resultsOutput.TimeTaken = theResults.TimeTaken;
+        resultsOutput.Difficulty = theResults.Difficulty;
+        resultsOutput.TestLength = theResults.TestLength;
         
         
         // checks to see if the model exists in the db to prevent null reference
@@ -220,14 +225,62 @@ public class PractiseController : Controller
             loggedInUser.HighScores = new HighScoresModel();
         }
         
-        // checks to see if the score is a new highscore
-        if (loggedInUser.HighScores.MultiplicationEasyTestScore < theResults.StandardisedScore)
+        // adds to correct difficulty column in high score table
+        switch (theResults.Difficulty)
         {
-            // updates the highscore
-            loggedInUser.HighScores.MultiplicationEasyTestScore = theResults.StandardisedScore;
-            // used to tell user it is a new highscore
-            resultsOutput.HighScore = true;
+            case DifficultyEnum.Easy:
+                // checks to see if the score is a new highscore
+                if (loggedInUser.HighScores.MultiplicationEasyTestScore < resultsOutput.StandardisedScore)
+                {
+                    // updates the highscore
+                    loggedInUser.HighScores.MultiplicationEasyTestScore = resultsOutput.StandardisedScore;
+                    // used to tell user it is a new highscore
+                    resultsOutput.HighScore = true;
+                }
+                break;
+            case DifficultyEnum.Medium:
+                // checks to see if the score is a new highscore
+                if (loggedInUser.HighScores.MultiplicationMediumTestScore < resultsOutput.StandardisedScore)
+                {
+                    // updates the highscore
+                    loggedInUser.HighScores.MultiplicationMediumTestScore = resultsOutput.StandardisedScore;
+                    // used to tell user it is a new highscore
+                    resultsOutput.HighScore = true;
+                }
+                break;
+            case DifficultyEnum.Hard:
+                // checks to see if the score is a new highscore
+                if (loggedInUser.HighScores.MultiplicationHardTestScore < resultsOutput.StandardisedScore)
+                {
+                    // updates the highscore
+                    loggedInUser.HighScores.MultiplicationHardTestScore = resultsOutput.StandardisedScore;
+                    // used to tell user it is a new highscore
+                    resultsOutput.HighScore = true;
+                }
+                break;
+            case DifficultyEnum.Expert:
+                // checks to see if the score is a new highscore
+                if (loggedInUser.HighScores.MultiplicationExpertTestScore < resultsOutput.StandardisedScore)
+                {
+                    // updates the highscore
+                    loggedInUser.HighScores.MultiplicationExpertTestScore = resultsOutput.StandardisedScore;
+                    // used to tell user it is a new highscore
+                    resultsOutput.HighScore = true;
+                }
+                break;
+            case DifficultyEnum.Legend:
+                // checks to see if the score is a new highscore
+                if (loggedInUser.HighScores.MultiplicationLegendTestScore < resultsOutput.StandardisedScore)
+                {
+                    // updates the highscore
+                    loggedInUser.HighScores.MultiplicationLegendTestScore = resultsOutput.StandardisedScore;
+                    // used to tell user it is a new highscore
+                    resultsOutput.HighScore = true;
+                }
+                break;
         }
+        
+        
         _db.Update(loggedInUser);
         _db.SaveChanges();  
 

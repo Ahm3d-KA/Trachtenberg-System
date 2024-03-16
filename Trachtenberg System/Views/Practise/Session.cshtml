@@ -247,20 +247,83 @@
         // }
     
         generateMultiplicationTest() {
+            let randomInteger;
             switch(this.difficulty) {
                 // operands are generated differently based on the difficulty
                 case "easy":
                     // creates the number of questions specified by testLength
                     for (let i = 0; i < this.testLength; i++) {
                         // generates a random operand between 2 and 12 inclusive for all the questions and appends it to operands list
-                        this.operands.push(getRandomInteger(2, 12));
+                        randomInteger = getRandomInteger(2, 12);
+                        if (randomInteger === 10) { // makes it much harder to get 10
+                            randomInteger = getRandomInteger(2, 12);
+                            }
+                        this.operands.push(randomInteger);
                         // generates a random operand between 2 and 99 inclusive for all the questions and appends it to secondaryOperands list
                         this.secondaryOperands.push(getRandomInteger(2, 99));
                         // calculates the answer from the operands and appends it to the answers list
                         this.answers.push(this.operands[i] * this.secondaryOperands[i]);
                     }
-           
                     break;
+                case "medium":
+                    // creates the number of questions specified by testLength
+                    for (let i = 0; i < this.testLength; i++) {
+                        // generates a random operand between 2 and 12 inclusive for all the questions and appends it to operands list
+                        randomInteger = getRandomInteger(2, 12);
+                        if (randomInteger === 10) { // makes it much harder to get 10
+                            randomInteger = getRandomInteger(2, 12);
+                            }
+                        this.operands.push(randomInteger);
+                        // generates a random operand between 100 and 999 inclusive for all the questions and appends it to secondaryOperands list
+                        this.secondaryOperands.push(getRandomInteger(100, 999));
+                        // calculates the answer from the operands and appends it to the answers list
+                        this.answers.push(this.operands[i] * this.secondaryOperands[i]);
+                    }
+                    break;
+                case "hard":
+                    // creates the number of questions specified by testLength
+                    for (let i = 0; i < this.testLength; i++) {
+                        // generates a random operand between 2 and 12 inclusive for all the questions and appends it to operands list
+                        randomInteger = getRandomInteger(2, 12);
+                        if (randomInteger === 10) { // makes it much harder to get 10
+                            randomInteger = getRandomInteger(2, 12);
+                            }
+                        this.operands.push(randomInteger);
+                        // generates a random operand between 100 and 999 inclusive for all the questions and appends it to secondaryOperands list
+                        this.secondaryOperands.push(getRandomInteger(1000, 99999));
+                        // calculates the answer from the operands and appends it to the answers list
+                        this.answers.push(this.operands[i] * this.secondaryOperands[i]);
+                    }
+                    break;
+                case "expert":
+                    // creates the number of questions specified by testLength
+                    for (let i = 0; i < this.testLength; i++) {
+                        // generates a random operand between 2 and 12 inclusive for all the questions and appends it to operands list
+                        randomInteger = getRandomInteger(13, 99);
+                        if (randomInteger === 10) { // makes it much harder to get 10
+                            randomInteger = getRandomInteger(13, 99);
+                            }
+                        this.operands.push(randomInteger);
+                        // generates a random operand between 100 and 999 inclusive for all the questions and appends it to secondaryOperands list
+                        this.secondaryOperands.push(getRandomInteger(13, 99));
+                        // calculates the answer from the operands and appends it to the answers list
+                        this.answers.push(this.operands[i] * this.secondaryOperands[i]);
+                    }
+                    break;
+                case "legend":
+                    // creates the number of questions specified by testLength
+                    for (let i = 0; i < this.testLength; i++) {
+                        // generates a random operand between 2 and 12 inclusive for all the questions and appends it to operands list
+                        randomInteger = getRandomInteger(13, 99);
+                        if (randomInteger === 10) { // makes it much harder to get 10
+                            randomInteger = getRandomInteger(13, 99);
+                            }
+                        this.operands.push(randomInteger);
+                        // generates a random operand between 100 and 999 inclusive for all the questions and appends it to secondaryOperands list
+                        this.secondaryOperands.push(getRandomInteger(1000, 99999));
+                        // calculates the answer from the operands and appends it to the answers list
+                        this.answers.push(this.operands[i] * this.secondaryOperands[i]);
+                    }
                 // case "medium":
                 //     break;
                 // case "hard":

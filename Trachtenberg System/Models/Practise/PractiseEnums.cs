@@ -15,7 +15,8 @@ public enum DifficultyEnum
     Easy,
     Medium,
     Hard,
-    Expert
+    Expert,
+    Legend
 }
 
 public enum OperationsEnum
