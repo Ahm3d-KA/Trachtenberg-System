@@ -21,7 +21,7 @@ public class LeaderboardController : Controller
         // var highScoresList = from highScore in _db.HighScores select highScore orderby 
         // selects all the highscore records in the table and orders by MultiplicationEasyTestScore
         IEnumerable<HighScoresModel> highScoresList =
-            _db.HighScores.OrderBy(highScore => highScore.MultiplicationEasyTestScore);
+            _db.HighScores.OrderByDescending(highScore => highScore.MultiplicationEasyTestScore);
         // foreach (HighScoresModel highScore in highScoresList)
         // {
         //     var relatedUser = from user in _db.Users
