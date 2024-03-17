@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trachtenberg_System.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using Trachtenberg_System.Areas.Identity.Data;
 namespace Trachtenberg_System.Data.UserData
 {
     [DbContext(typeof(ApplicationUserDbContext))]
-    partial class WebsiteUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240317121513_change to float")]
+    partial class changetofloat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,9 +249,6 @@ namespace Trachtenberg_System.Data.UserData
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccountName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MultiplicationEasyTestScore")
                         .HasColumnType("int");

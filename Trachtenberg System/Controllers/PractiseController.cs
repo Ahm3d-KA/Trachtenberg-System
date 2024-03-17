@@ -20,13 +20,13 @@ public class PractiseController : Controller
     
     [NonAction]
     // adds the new test accuracy to the average and returns the new average
-    public double CalculateNewAverageAccuracy(double oldAverageAccuracy, double testAccuracy,
+    public float CalculateNewAverageAccuracy(float oldAverageAccuracy, float testAccuracy,
         int oldNumberOfTestsCompleted)
     {
         var total = oldAverageAccuracy * oldNumberOfTestsCompleted;
         total = total + testAccuracy;
-        double newAverageAccuracy = total / (oldNumberOfTestsCompleted + 1);
-        newAverageAccuracy = Math.Round(newAverageAccuracy, 2);
+        float newAverageAccuracy = total / (oldNumberOfTestsCompleted + 1);
+        newAverageAccuracy = (float)Math.Round(newAverageAccuracy, 2);
         return newAverageAccuracy;
     }
     
@@ -175,7 +175,7 @@ public class PractiseController : Controller
         if (theResults.Result != null && theResults.NumberOfQuestions != null)
         {
             // Finds % score and rounds to 1 dp
-            theResults.Accuracy = Math.Round(((double)theResults.Result / theResults.NumberOfQuestions * 100), 1);
+            theResults.Accuracy = (float)Math.Round(((double)theResults.Result / theResults.NumberOfQuestions * 100), 1);
             resultsOutput.StandardisedScore = CalculateStandardScore(theResults.TimeTaken, theResults.TestLength,
                 theResults.Accuracy, theResults.Difficulty);
         }
@@ -199,9 +199,20 @@ public class PractiseController : Controller
             loggedInUser.UserStats = new UserStatsModel();
         }
 
+        if (loggedInUser.HighScores == null)
+        {
+            loggedInUser.HighScores = new HighScoresModel();
+        }
+
         if (loggedInUser.UserStats.AccountName == null)
         {
             loggedInUser.UserStats.AccountName = loggedInUser.AccountName;
+        }
+        
+        // checks to see if account name is there and if not, adds it to the highscores table
+        if (loggedInUser.HighScores.AccountName == null)
+        {
+            loggedInUser.HighScores.AccountName = loggedInUser.AccountName;
         }
 
         if (loggedInUser.UserStats.NumberOfTestsCompleted == 0)

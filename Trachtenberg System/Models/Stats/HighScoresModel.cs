@@ -15,6 +15,7 @@ public class HighScoresModel
     // public string WebsiteUserId { get; set; }
     // public int WebsiteUserId { get; set; }
     // public WebsiteUser WebsiteUser { get; set; }
+    public string? AccountName { get; set; }
 
     public int MultiplicationEasyTestScore { get; set; } = 0;
 

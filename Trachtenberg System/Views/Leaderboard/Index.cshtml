@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HighScoresModel>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Leaderboard";
+}
+
+<div class="overflow-x-auto">
+  <table class="table table-zebra">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Username</th>
+        <th>Multiplication Easy Test High score</th>
+      </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    
+    @{
+      // stores the rank of the current user
+      int rank = 1;
+      foreach (HighScoresModel user in @Model)
+      {
+        <tr>
+          <th>@rank</th>
+          <td>@user.AccountName</td>
+          <td>@user.MultiplicationEasyTestScore</td>
+        </tr>
+      }
+      rank += 1;
+    }
+    
+    </tbody>
+  </table>
+</div>

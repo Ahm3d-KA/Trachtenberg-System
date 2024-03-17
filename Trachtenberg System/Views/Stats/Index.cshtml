@@ -15,8 +15,12 @@
     <h2 class="text-3xl">These are your stats</h2>
     <div class="flex flex-col items-center">
         <p>Tests completed: @Model.UserStats.NumberOfTestsCompleted</p>
+        <p>Average Accuracy: @Model.UserStats.AverageAccuracy %</p>
         <p>Multiplication Easy Test High score: @Model.HighScores.MultiplicationEasyTestScore</p>
-        <p>Average Accuracy: @Model.UserStats.AverageAccuracy</p>
+        <p>Multiplication Medium Test High score: @Model.HighScores.MultiplicationMediumTestScore</p>
+        <p>Multiplication Hard Test High score: @Model.HighScores.MultiplicationHardTestScore</p>
+        <p>Multiplication Expert Test High score: @Model.HighScores.MultiplicationExpertTestScore</p>
+        <p>Multiplication Legend Test High score: @Model.HighScores.MultiplicationLegendTestScore</p>
     </div>
     
 </div>

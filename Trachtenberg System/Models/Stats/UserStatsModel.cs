@@ -17,7 +17,7 @@ public class UserStatsModel
     public string? AccountName { get; set; }
     // used as a reference to travel to high score record
     public int NumberOfTestsCompleted { get; set; }
-    public double AverageAccuracy { get; set; }
+    public float AverageAccuracy { get; set; }
 }
 
 // allows me to configure how the database is built. E.g. if I have a complex database that I want stored in a specific way

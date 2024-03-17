@@ -11,7 +11,7 @@ public class ResultsModel
     public DifficultyEnum Difficulty { get; set; }
     public int TimeTaken { get; set; }
     public int StandardisedScore { get; set; }
-    public double Accuracy { get; set; }
+    public float Accuracy { get; set; }
     public bool HighScore { get; set; }
     public List<QuestionsWrongStruct> QuestionsWrong { get; set; }
     // public string UserId { get; set; }
